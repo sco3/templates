@@ -6,32 +6,69 @@ from jinja2 import Template as Jinja2Template
 # Create the table data (100x100 cells)
 table_data = [[f"Cell {row * 100 + col}" for col in range(100)] for row in range(100)]
 
-# Template code for all engines
-table_template_code = """
+# Mako Template code
+mako_template_code = """
+<%!
+    def format_cell(cell):
+        return f"Cell {cell}"
+%>
 <table>
-    {%- for row in table -%}
+% for row in table:
     <tr>
-        {%- for col in row -%}
-        <td>{{ col }}</td>
-        {%- endfor -%}
+    % for col in row:
+        <td>${format_cell(col)}</td>
+    % endfor
     </tr>
-    {%- endfor -%}
+% endfor
+</table>
+"""
+
+# Cheetah3 Template code
+cheetah_template_code = """
+#def format_cell(cell)
+    return "Cell $cell"
+#end def
+<table>
+#for $row in $table
+    <tr>
+    #for $col in $row
+        <td>$format_cell($col)</td>
+    #end for
+    </tr>
+#end for
+</table>
+"""
+
+# Jinja2 Template code
+jinja2_template_code = """
+{% macro format_cell(cell) %}
+    Cell {{ cell }}
+{% endmacro %}
+
+<table>
+{% for row in table %}
+    <tr>
+    {% for col in row %}
+        <td>{{ format_cell(col) }}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
 </table>
 """
 
 # 1. Mako Template
 def render_mako():
-    template = MakoTemplate(table_template_code)
+    template = MakoTemplate(mako_template_code)
     return template.render(table=table_data)
 
 # 2. Cheetah3 Template
 def render_cheetah():
-    template = CheetahTemplate(table_template_code, searchList=[{'table': table_data}])
+    template = CheetahTemplate(cheetah_template_code, searchList=[{'table': table_data}])
     return str(template)
 
 # 3. Jinja2 Template
 def render_jinja2():
-    template = Jinja2Template(table_template_code)
+    template = Jinja2Template(jinja2_template_code)
     return template.render(table=table_data)
 
 # Measure execution times for 1000 invocations
