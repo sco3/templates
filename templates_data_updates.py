@@ -75,7 +75,6 @@ def upd_products(p: dict, i: int) -> None:
 # Rendering and timing functions
 def render_mako(i: int):
     upd_products(products, i)
-
     template = MakoTemplate(mako_template_code)
     return template.render(products=products)
 
