@@ -1,0 +1,13 @@
+#def format_price(price)
+    #return "${:,.2f}".format(price)
+#end def
+<ul>
+#for $product in $products
+    <li>
+        $product.name - $format_price($product.price)
+        #if $product.on_sale
+            <strong>On Sale!</strong>
+        #end if
+    </li>
+#end for
+</ul>
