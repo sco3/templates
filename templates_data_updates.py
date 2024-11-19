@@ -64,28 +64,46 @@ jinja2_template_code = """
 </ul>
 """
 
+
+def upd_products(p: dict, i: int) -> None:
+    products[0]["price"] = i
+    products[1]["price"] = i * 2
+    products[2]["price"] = i * 3
+    # print (products)
+
+
 # Rendering and timing functions
-def render_mako():
+def render_mako(i: int):
     template = MakoTemplate(mako_template_code)
+    upd_products(products, i)
     return template.render(products=products)
 
-def render_cheetah():
-    template = CheetahTemplate(cheetah_template_code, searchList=[{'products': products}])
+
+def render_cheetah(i: int):
+    template = CheetahTemplate(
+        cheetah_template_code, searchList=[{"products": products}]
+    )
+    upd_products(products, i)
     return str(template)
 
-def render_jinja2():
+
+def render_jinja2(i: int):
     template = Jinja2Template(jinja2_template_code)
+    upd_products(products, i)
     return template.render(products=products)
+
 
 # Measure execution times for 1000 invocations
 def measure_execution_time(render_func, name, iterations=1000):
     start_time = time.time()
-    for _ in range(iterations):
-        render_func()
+    for i in range(iterations):
+        render_func(i)
     end_time = time.time()
     duration = end_time - start_time
     avg_time = duration / iterations
-    print(f"{name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
+    print(
+        f"{name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)"
+    )
 
 
 print("Testing template rendering performance (1 invocations):\n")
