@@ -1,3 +1,5 @@
+#!/usr/bin/env -S uv run
+
 import time
 from mako.template import Template as MakoTemplate
 from Cheetah.Template import Template as CheetahTemplate

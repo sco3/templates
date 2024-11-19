@@ -72,47 +72,47 @@ def upd_products(p: dict, i: int) -> None:
     # print (products)
 
 
-# Rendering and timing functions
-def render_mako(i: int):
-    upd_products(products, i)
+# Pre-compilation functions for each engine
+def pre_compile_mako():
+    # Pre-compile Mako template into a module.
+    return MakoTemplate(mako_template_code)
 
-    template = MakoTemplate(mako_template_code)
+def pre_compile_cheetah():
+    # Compile Cheetah template (Cheetah has a compile method)
+    return CheetahTemplate(cheetah_template_code, searchList=[{'products': products}])
+
+def pre_compile_jinja2():
+    # Pre-compile Jinja2 template
+    return Jinja2Template(jinja2_template_code)
+
+# Rendering and timing functions
+def render_mako(template):
     return template.render(products=products)
 
-
-def render_cheetah(i: int):
-    upd_products(products, i)
-    template = CheetahTemplate(
-        cheetah_template_code, searchList=[{"products": products}]
-    )
+def render_cheetah(template):
     return str(template)
 
-
-def render_jinja2(i: int):
-    upd_products(products, i)
-    template = Jinja2Template(jinja2_template_code)
+def render_jinja2(template):
     return template.render(products=products)
 
-
 # Measure execution times for 1000 invocations
-def measure_execution_time(render_func, name, iterations=1000):
+def measure_execution_time(render_func, template, name, iterations=1000):
     start_time = time.time()
-    for i in range(iterations):
-        render_func(i)
+    for _ in range(iterations):
+        render_func(template)
     end_time = time.time()
     duration = end_time - start_time
     avg_time = duration / iterations
-    print(
-        f"{name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)"
-    )
+    print(f"{name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
 
+# Pre-compiling templates
+print("Pre-compiling templates...\n")
+mako_template = pre_compile_mako()
+cheetah_template = pre_compile_cheetah()
+jinja2_template = pre_compile_jinja2()
 
-print("Testing template rendering performance (1 invocations):\n")
-measure_execution_time(render_mako, "Mako", iterations=1)
-measure_execution_time(render_cheetah, "Cheetah3", iterations=1)
-measure_execution_time(render_jinja2, "Jinja2", iterations=1)
-
-print("Testing template rendering performance (1000 invocations):\n")
-measure_execution_time(render_mako, "Mako")
-measure_execution_time(render_cheetah, "Cheetah3")
-measure_execution_time(render_jinja2, "Jinja2")
+# Running and timing each template engine for 1000 invocations
+print("\nTesting template rendering performance (1000 invocations):\n")
+measure_execution_time(render_mako, mako_template, "Mako")
+measure_execution_time(render_cheetah, cheetah_template, "Cheetah3")
+measure_execution_time(render_jinja2, jinja2_template, "Jinja2")
