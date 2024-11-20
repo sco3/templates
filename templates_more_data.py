@@ -5,12 +5,35 @@ from mako.template import Template as MakoTemplate
 from Cheetah.Template import Template as CheetahTemplate
 from jinja2 import Template as Jinja2Template
 
-# Sample data
-products = [
-    {"name": "Laptop", "price": 999.99, "on_sale": True},
-    {"name": "Smartphone", "price": 499.99, "on_sale": False},
-    {"name": "Headphones", "price": 199.99, "on_sale": True},
-]
+
+
+import random
+from itertools import cycle
+
+def products(num_records):
+    """
+    Generator to create a dynamic number of product records.
+
+    Args:
+        num_records (int): Total number of products to generate.
+
+    Yields:
+        dict: A product dictionary with 'name', 'price', and 'on_sale' attributes.
+    """
+    # Predefined values
+    product_names = ["Laptop", "Smartphone", "Headphones", "Tablet", "Camera"]
+    min_price = 100.00  # Minimum price
+    max_price = 2000.00  # Maximum price
+    name_cycle = cycle(product_names)  # Cycle through the product names
+
+    for _ in range(num_records):
+        yield {
+            "name": next(name_cycle),  # Cyclic selection of names
+            "price": round(random.uniform(min_price, max_price), 2),  # Random price
+            "on_sale": random.choice([True, False]),  # Random on_sale status
+        }
+
+
 
 # 1. Mako Template
 mako_template_code = """
@@ -64,33 +87,25 @@ jinja2_template_code = """
 </ul>
 """
 
-
-def upd_products(p: dict, i: int) -> None:
-    products[0]["price"] = i
-    products[1]["price"] = i * 2
-    products[2]["price"] = i * 3
-    # print (products)
+NREC:int=100
 
 
 # Rendering and timing functions
 def render_mako(i: int):
-    upd_products(products, i)
     template = MakoTemplate(mako_template_code)
-    return template.render(products=products)
+    return template.render(products=products(NREC))
 
 
 def render_cheetah(i: int):
-    upd_products(products, i)
     template = CheetahTemplate(
-        cheetah_template_code, searchList=[{"products": products}]
+        cheetah_template_code, searchList=[{"products": products(NREC)}]
     )
     return str(template)
 
 
 def render_jinja2(i: int):
-    upd_products(products, i)
     template = Jinja2Template(jinja2_template_code)
-    return template.render(products=products)
+    return template.render(products=products(NREC))
 
 
 # Measure execution times for 1000 invocations
