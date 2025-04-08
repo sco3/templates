@@ -3,7 +3,7 @@
 import time
 from mako.template import Template as MakoTemplate
 from Cheetah.Template import Template as CheetahTemplate
-from jinja2 import Template as Jinja2Template
+from jinja2 import Template as Jinja2Template, StrictUndefined
 
 # Sample data
 products = [
@@ -74,7 +74,7 @@ def render_cheetah():
     return str(template)
 
 def render_jinja2():
-    template = Jinja2Template(jinja2_template_code)
+    template = Jinja2Template(jinja2_template_code, undefined=StrictUndefined)
     return template.render(products=products)
 
 # Measure execution times for 1000 invocations
