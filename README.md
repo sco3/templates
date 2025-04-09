@@ -1,40 +1,40 @@
 
-Testing template rendering performance (1 invocation(s)):
+Testing template compilation + rendering performance (1 invocation(s)):
 ---
 
 | Name       | Iterations |  Total Time (s) |   Avg Time per Render (s) |
 |------------|------------|-----------------|---------------------------|
-| Mako       |          1 |        0.002533 |        0.002533 |
-| Cheetah3   |          1 |        0.003086 |        0.003086 |
-| Jinja2     |          1 |        0.002166 |        0.002166 |
-| Minijinja  |          1 |        0.000179 |        0.000179 |
+| Mako       |          1 |        0.002725 |                  0.002725 |
+| Cheetah3   |          1 |        0.003355 |                  0.003355 |
+| Jinja2     |          1 |        0.002363 |                  0.002363 |
+| Minijinja  |          1 |        0.000254 |                  0.000254 |
 
-Testing template rendering performance (10 invocation(s)):
+Testing template compilation + rendering performance (10 invocation(s)):
 ---
 
 | Name       | Iterations |  Total Time (s) |   Avg Time per Render (s) |
 |------------|------------|-----------------|---------------------------|
-| Mako       |         10 |        0.007173 |        0.000717 |
-| Cheetah3   |         10 |        0.000422 |        0.000042 |
-| Jinja2     |         10 |        0.011773 |        0.001177 |
-| Minijinja  |         10 |        0.000384 |        0.000038 |
+| Mako       |         10 |        0.007421 |                  0.000742 |
+| Cheetah3   |         10 |        0.001108 |                  0.000111 |
+| Jinja2     |         10 |        0.012765 |                  0.001277 |
+| Minijinja  |         10 |        0.001370 |                  0.000137 |
 
-Testing template rendering performance (100 invocation(s)):
+Testing template compilation + rendering performance (100 invocation(s)):
 ---
 
 | Name       | Iterations |  Total Time (s) |   Avg Time per Render (s) |
 |------------|------------|-----------------|---------------------------|
-| Mako       |        100 |        0.070550 |        0.000706 |
-| Cheetah3   |        100 |        0.002162 |        0.000022 |
-| Jinja2     |        100 |        0.117698 |        0.001177 |
-| Minijinja  |        100 |        0.003128 |        0.000031 |
+| Mako       |        100 |        0.072831 |                  0.000728 |
+| Cheetah3   |        100 |        0.008919 |                  0.000089 |
+| Jinja2     |        100 |        0.129571 |                  0.001296 |
+| Minijinja  |        100 |        0.012954 |                  0.000130 |
 
-Testing template rendering performance (1000 invocation(s)):
+Testing template compilation + rendering performance (1000 invocation(s)):
 ---
 
 | Name       | Iterations |  Total Time (s) |   Avg Time per Render (s) |
 |------------|------------|-----------------|---------------------------|
-| Mako       |       1000 |        0.703843 |        0.000704 |
-| Cheetah3   |       1000 |        0.020564 |        0.000021 |
-| Jinja2     |       1000 |        1.168896 |        0.001169 |
-| Minijinja  |       1000 |        0.029271 |        0.000029 |
+| Mako       |       1000 |        0.731535 |                  0.000732 |
+| Cheetah3   |       1000 |        0.087500 |                  0.000087 |
+| Jinja2     |       1000 |        1.296226 |                  0.001296 |
+| Minijinja  |       1000 |        0.126493 |                  0.000126 |
