@@ -122,13 +122,9 @@ def measure_execution_time(render_func, name, iterations=1000):
     # print(f"| {name} | {iterations} | {duration:.6f} | {avg_time:.6f} |")
     print(f"| {name:<10} | {iterations:>10} | {duration:>15.6f} | {avg_time:>15.6f} |")
 
-def header_old (n):
-    print(f"\nTesting template rendering performance ({n} invocation):\n---\n")
-    print("| Name | Iterations | Total Time (s) | Avg Time per Render (s) |")
-    print("|------|------------|----------------|-------------------------|")
     
 def header(n):
-    print(f"\nTesting template rendering performance ({n} invocation):\n---\n")
+    print(f"\nTesting template rendering performance ({n} invocation(s)):\n---\n")
 
     print(f"| {'Name':<10} | {'Iterations':>10} | {'Total Time (s)':>15} | {'Avg Time per Render (s)':>25} |")
     print(f"|{'-'*12}|{'-'*12}|{'-'*17}|{'-'*27}|")
