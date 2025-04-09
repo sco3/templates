@@ -118,29 +118,25 @@ def measure_execution_time(render_func, name, iterations=1000):
     end_time = time.time()
     duration = end_time - start_time
     avg_time = duration / iterations
-    print(f"* {name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
+    # print(f"* {name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
+    # print(f"| {name} | {iterations} | {duration:.6f} | {avg_time:.6f} |")
+    print(f"| {name:<10} | {iterations:>10} | {duration:>15.6f} | {avg_time:>15.6f} |")
 
+def header_old (n):
+    print(f"\nTesting template rendering performance ({n} invocation):\n---\n")
+    print("| Name | Iterations | Total Time (s) | Avg Time per Render (s) |")
+    print("|------|------------|----------------|-------------------------|")
+    
+def header(n):
+    print(f"\nTesting template rendering performance ({n} invocation):\n---\n")
 
-print("\nTesting template rendering performance (1 invocations):\n---\n")
-measure_execution_time(render_mako, "Mako", iterations=1)
-measure_execution_time(render_cheetah, "Cheetah3", iterations=1)
-measure_execution_time(render_jinja2, "Jinja2", iterations=1)
-measure_execution_time(render_minijinja, "Minijinja", iterations=1)
+    print(f"| {'Name':<10} | {'Iterations':>10} | {'Total Time (s)':>15} | {'Avg Time per Render (s)':>25} |")
+    print(f"|{'-'*12}|{'-'*12}|{'-'*17}|{'-'*27}|")
 
-print("\nTesting template rendering performance (10 invocations):\n---\n")
-measure_execution_time(render_mako, "Mako", iterations=10)
-measure_execution_time(render_cheetah, "Cheetah3", iterations=10)
-measure_execution_time(render_jinja2, "Jinja2", iterations=10)
-measure_execution_time(render_minijinja, "Minijinja", iterations=10)
+for i in [1,10,100,1000] :
+    header(i)
 
-print("\nTesting template rendering performance (100 invocations):\n---\n")
-measure_execution_time(render_mako, "Mako", iterations=100)
-measure_execution_time(render_cheetah, "Cheetah3", iterations=100)
-measure_execution_time(render_jinja2, "Jinja2", iterations=100)
-measure_execution_time(render_minijinja, "Minijinja", iterations=100)
-
-print("\nTesting template rendering performance (1000 invocations):\n---\n")
-measure_execution_time(render_mako, "Mako")
-measure_execution_time(render_cheetah, "Cheetah3")
-measure_execution_time(render_jinja2, "Jinja2")
-measure_execution_time(render_minijinja, "Minijinja")
+    measure_execution_time(render_mako, "Mako", iterations=i)
+    measure_execution_time(render_cheetah, "Cheetah3", iterations=i)
+    measure_execution_time(render_jinja2, "Jinja2", iterations=i)
+    measure_execution_time(render_minijinja, "Minijinja", iterations=i)
