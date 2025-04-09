@@ -4,6 +4,7 @@ import time
 from mako.template import Template as MakoTemplate
 from Cheetah.Template import Template as CheetahTemplate
 from jinja2 import Template as Jinja2Template, StrictUndefined
+from minijinja import Environment
 
 # Sample data
 products = [
@@ -64,6 +65,24 @@ jinja2_template_code = """
 </ul>
 """
 
+minijinja_template_code = """
+{% macro format_price(price) %}
+    {{ price  }}
+{% endmacro %}
+<ul>
+{% for product in products %}
+    <li>
+        {{ product.name }} - {{ format_price(product.price) }}
+        {% if product.on_sale %}
+            <strong>On Sale!</strong>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+"""
+
+
+
 # Rendering and timing functions
 def render_mako():
     template = MakoTemplate(mako_template_code)
@@ -77,6 +96,20 @@ def render_jinja2():
     template = Jinja2Template(jinja2_template_code, undefined=StrictUndefined)
     return template.render(products=products)
 
+def currency(value):
+    return "${:,.2f}".format(value)
+
+def render_minijinja():
+    t_name = "test"
+    env = Environment(templates={
+        t_name:minijinja_template_code,
+    }
+    )
+
+    return env.render_template(t_name, products=products)
+
+
+
 # Measure execution times for 1000 invocations
 def measure_execution_time(render_func, name, iterations=1000):
     start_time = time.time()
@@ -88,12 +121,26 @@ def measure_execution_time(render_func, name, iterations=1000):
     print(f"{name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
 
 
-print("Testing template rendering performance (1 invocations):\n")
+print("\nTesting template rendering performance (1 invocations):\n")
 measure_execution_time(render_mako, "Mako", iterations=1)
 measure_execution_time(render_cheetah, "Cheetah3", iterations=1)
 measure_execution_time(render_jinja2, "Jinja2", iterations=1)
+measure_execution_time(render_minijinja, "Minijinja", iterations=1)
 
-print("Testing template rendering performance (1000 invocations):\n")
+print("\nTesting template rendering performance (10 invocations):\n")
+measure_execution_time(render_mako, "Mako", iterations=10)
+measure_execution_time(render_cheetah, "Cheetah3", iterations=10)
+measure_execution_time(render_jinja2, "Jinja2", iterations=10)
+measure_execution_time(render_minijinja, "Minijinja", iterations=10)
+
+print("\nTesting template rendering performance (100 invocations):\n")
+measure_execution_time(render_mako, "Mako", iterations=100)
+measure_execution_time(render_cheetah, "Cheetah3", iterations=100)
+measure_execution_time(render_jinja2, "Jinja2", iterations=100)
+measure_execution_time(render_minijinja, "Minijinja", iterations=100)
+
+print("\nTesting template rendering performance (1000 invocations):\n")
 measure_execution_time(render_mako, "Mako")
 measure_execution_time(render_cheetah, "Cheetah3")
 measure_execution_time(render_jinja2, "Jinja2")
+measure_execution_time(render_minijinja, "Minijinja")

@@ -1,4 +1,5 @@
 version = 1
+revision = 1
 requires-python = ">=3.12"
 
 [[package]]
@@ -6,9 +7,6 @@ name = "cheetah3"
 version = "3.2.6.post1"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/23/33/ace0250068afca106c1df34348ab0728e575dc9c61928d216de3e381c460/Cheetah3-3.2.6.post1.tar.gz", hash = "sha256:58b5d84e5fbff6cf8e117414b3ea49ef51654c02ee887d155113c5b91d761967", size = 295992 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/59/39/72440e5ea1c94232dd0268d49cd62aa1240f8207a904081c4110e6a43d26/Cheetah3-3.2.6.post1-pp27-pypy_73-win32.whl", hash = "sha256:090a3aa778fa239c17b0b3bf53ee69036d9b2e31b5f03cc111d1e28fd4789c95", size = 182256 },
-]
 
 [[package]]
 name = "jinja2"
@@ -73,6 +71,21 @@ wheels = [
 ]
 
 [[package]]
+name = "minijinja"
+version = "2.9.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/f1/22e5863e8bd8925deee7c16903c3bc10d086b4d40bdf9bfcd427b8b8a9fd/minijinja-2.9.0.tar.gz", hash = "sha256:752f44e75e18e0cf03751bdbead031f88cefdebd7d5140b9c1e6a6d2de3cc1cc", size = 260245 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/34/1d/c1ee761c387e1422967766e73facad8f59008aeb8a9fe4e6ea604e47d502/minijinja-2.9.0-cp38-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:67c35c2f01a06d7760b4634bc8c7f4dfcc4e8b63956a3c606d70124f6ae52cfb", size = 1912440 },
+    { url = "https://files.pythonhosted.org/packages/b1/92/366db25d98f047a7c2470a2972bd4d35ce6d324dc5320c6346df83c35111/minijinja-2.9.0-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a72b45788211507a5d08a537cdb258be67e79766185c97f60c1f2812f80b36c9", size = 979653 },
+    { url = "https://files.pythonhosted.org/packages/b8/29/4246cd6a53e41b64bffb2367ac34eecec51f785d0ed18d030b13d3633244/minijinja-2.9.0-cp38-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:bc1d7403f81a45f708412fbf666c967e4eb7b177becdc248b667820d23523162", size = 972390 },
+    { url = "https://files.pythonhosted.org/packages/db/b5/2c7300949974ef829012abba2373286f15bebde868f0027091919a2f1699/minijinja-2.9.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e987e5421365de59bc9bd621998bab00246378250f06ad67cbe45f160c57b83c", size = 1035621 },
+    { url = "https://files.pythonhosted.org/packages/3d/74/c73025c2cd725328aa834db3b19f6ae7c7d82354101ed99d43164dd558c5/minijinja-2.9.0-cp38-abi3-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:147eb667adb434efeb7590005f7be3b36b2931bc152a59809cd291025419411d", size = 1124235 },
+    { url = "https://files.pythonhosted.org/packages/04/98/6ed014940c6f277ff4de9804c03dacb3e755221152d2f4fab2ab07c4517d/minijinja-2.9.0-cp38-abi3-win32.whl", hash = "sha256:12426c068f027f5bc9fb1e95119f205f84475c837afe1c4dbc20f96b41621f5e", size = 930868 },
+    { url = "https://files.pythonhosted.org/packages/dd/ed/469f1eba00e45d0cf22392599bb3618711d0d51adad4f19549e312f61444/minijinja-2.9.0-cp38-abi3-win_amd64.whl", hash = "sha256:70cdbcf045357d0bc2c59008f44229ff1da75726f8c0897f2c76d38015e18ffa", size = 962643 },
+]
+
+[[package]]
 name = "templates"
 version = "0.1.0"
 source = { virtual = "." }
@@ -80,6 +93,7 @@ dependencies = [
     { name = "cheetah3" },
     { name = "jinja2" },
     { name = "mako" },
+    { name = "minijinja" },
 ]
 
 [package.metadata]
@@ -87,4 +101,5 @@ requires-dist = [
     { name = "cheetah3", specifier = ">=3.2.6.post1" },
     { name = "jinja2", specifier = ">=3.1.4" },
     { name = "mako", specifier = ">=1.3.6" },
+    { name = "minijinja", specifier = ">=2.9.0" },
 ]
