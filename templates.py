@@ -118,28 +118,28 @@ def measure_execution_time(render_func, name, iterations=1000):
     end_time = time.time()
     duration = end_time - start_time
     avg_time = duration / iterations
-    print(f"{name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
+    print(f"* {name} Rendered {iterations} times in: {duration:.6f} seconds (Avg: {avg_time:.6f} seconds per render)")
 
 
-print("\nTesting template rendering performance (1 invocations):\n")
+print("\nTesting template rendering performance (1 invocations):\n---\n")
 measure_execution_time(render_mako, "Mako", iterations=1)
 measure_execution_time(render_cheetah, "Cheetah3", iterations=1)
 measure_execution_time(render_jinja2, "Jinja2", iterations=1)
 measure_execution_time(render_minijinja, "Minijinja", iterations=1)
 
-print("\nTesting template rendering performance (10 invocations):\n")
+print("\nTesting template rendering performance (10 invocations):\n---\n")
 measure_execution_time(render_mako, "Mako", iterations=10)
 measure_execution_time(render_cheetah, "Cheetah3", iterations=10)
 measure_execution_time(render_jinja2, "Jinja2", iterations=10)
 measure_execution_time(render_minijinja, "Minijinja", iterations=10)
 
-print("\nTesting template rendering performance (100 invocations):\n")
+print("\nTesting template rendering performance (100 invocations):\n---\n")
 measure_execution_time(render_mako, "Mako", iterations=100)
 measure_execution_time(render_cheetah, "Cheetah3", iterations=100)
 measure_execution_time(render_jinja2, "Jinja2", iterations=100)
 measure_execution_time(render_minijinja, "Minijinja", iterations=100)
 
-print("\nTesting template rendering performance (1000 invocations):\n")
+print("\nTesting template rendering performance (1000 invocations):\n---\n")
 measure_execution_time(render_mako, "Mako")
 measure_execution_time(render_cheetah, "Cheetah3")
 measure_execution_time(render_jinja2, "Jinja2")
